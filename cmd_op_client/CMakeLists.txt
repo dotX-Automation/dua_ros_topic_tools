@@ -74,7 +74,7 @@ rclcpp_components_register_nodes(cmd_op_client "dua_ros_topic_tools::CmdOpClient
 # Standalone application
 add_executable(cmd_op_client_app
   src/cmd_op_client_app.cpp)
-target_include_directories(cmd_op_client PUBLIC
+target_include_directories(cmd_op_client_app PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_compile_features(cmd_op_client_app PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17

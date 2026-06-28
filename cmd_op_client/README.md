@@ -43,7 +43,7 @@ The following string values are recognized on the `/cmd_op` topic. Unrecognized 
 | `kill` | Service | `std_srvs/srv/Trigger` | `services.kill.name` not empty, cooldown elapsed |
 | `reset` | Service | `std_srvs/srv/Trigger` | `services.reset.name` not empty, cooldown elapsed |
 
-The actions and services cooldown timers are tracked independently: an `arm` command and a `kill` command can be dispatched simultaneously, but two consecutive `arm` commands within `actions.cooldown` milliseconds will result in the second being dropped.
+The actions and services cooldown timers are tracked independently, but only one operation is executed at a time (any command received while an operation is running is dropped).
 
 ## Usage
 
