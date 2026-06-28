@@ -78,7 +78,7 @@ install(TARGETS qos_relay
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
-# Install app
+# Install application
 install(TARGETS qos_relay_app
   DESTINATION lib/${PROJECT_NAME})
 
