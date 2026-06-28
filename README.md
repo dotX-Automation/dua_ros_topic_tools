@@ -4,6 +4,8 @@ ROS topic data flow management utilities and nodes for the DUA framework.
 
 ## Contents
 
+- [`cmd_op_client`](cmd_op_client/README.md): A node that translates operational commands received over a topic into action and service calls.
+- [`dua_ros_topic_tools`](dua_ros_topic_tools/): Metapackage.
 - [`qos_relay`](qos_relay/README.md): A composable node that relays messages from one topic to another, allowing for independent QoS policy settings on either side.
 
 ## Copyright and License
