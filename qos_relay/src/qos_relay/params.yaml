@@ -1,0 +1,64 @@
+header_include_path: qos_relay/qos_relay.hpp
+namespace: dua_ros_topic_tools
+node_class_name: QoSRelay
+
+params:
+  input.name:
+    type: string
+    default_value: "/input"
+    description: "Input topic fully qualified name"
+    constraints: "Must be a valid ROS fully qualified name"
+    read_only: true
+    validator: validate_topic_fqn
+
+  input.qos.depth:
+    type: integer
+    default_value: 10
+    min_value: 0
+    max_value: 1000
+    step: 1
+    description: "Input topic QoS depth setting"
+    constraints: ""
+    read_only: true
+
+  input.qos.reliability:
+    type: string
+    default_value: "reliable"
+    description: "Input topic QoS reliability setting"
+    constraints: "Must be one of {'reliable', 'best_effort'}"
+    read_only: true
+    validator: validate_qos_reliability
+
+  input.wait:
+    type: bool
+    default_value: false
+    description: "Waits for the input topic to come up"
+    constraints: "If false, an exception is thrown instead"
+    read_only: true
+    var_name: input_wait_
+
+  output.name:
+    type: string
+    default_value: "/output"
+    description: "Output topic fully qualified name"
+    constraints: "Must be a valid ROS fully qualified name"
+    read_only: true
+    validator: validate_topic_fqn
+
+  output.qos.depth:
+    type: integer
+    default_value: 10
+    min_value: 0
+    max_value: 1000
+    step: 1
+    description: "Output topic QoS depth setting"
+    constraints: ""
+    read_only: true
+
+  output.qos.reliability:
+    type: string
+    default_value: "reliable"
+    description: "Output topic QoS reliability setting"
+    constraints: "Must be one of {'reliable', 'best_effort'}"
+    read_only: true
+    validator: validate_qos_reliability
