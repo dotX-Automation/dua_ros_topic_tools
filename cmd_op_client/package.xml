@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>qos_relay</name>
+  <name>cmd_op_client</name>
   <version>2.0.0</version>
-  <description>Topic relay node with configurable QoS policies.</description>
+  <description>Operational services and action client requests relay.</description>
   <maintainer email="info@dotxautomation.com">dotX Automation s.r.l.</maintainer>
   <license>Apache-2.0</license>
 
@@ -11,12 +11,18 @@
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
   <depend>dua_app_management</depend>
+  <depend>dua_common_interfaces</depend>
+  <depend>dua_hardware_interfaces</depend>
   <depend>dua_node_cpp</depend>
   <depend>dua_qos_cpp</depend>
   <depend>params_manager_cpp</depend>
   <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
   <depend>rclcpp_components</depend>
-  <depend>rmw</depend>
+  <depend>simple_actionclient_cpp</depend>
+  <depend>simple_serviceclient_cpp</depend>
+  <depend>sts_msgs</depend>
+  <depend>std_srvs</depend>
 
   <exec_depend>ament_index_python</exec_depend>
   <exec_depend>launch</exec_depend>

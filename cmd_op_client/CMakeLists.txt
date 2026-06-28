@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 set(BUILD_TESTING OFF CACHE BOOL "Build tests")
-project(qos_relay)
-
-set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+project(cmd_op_client)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -23,63 +21,76 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(dua_app_management REQUIRED)
+find_package(dua_common_interfaces REQUIRED)
+find_package(dua_hardware_interfaces REQUIRED)
 find_package(dua_node_cpp REQUIRED)
 find_package(dua_qos_cpp REQUIRED)
 find_package(params_manager_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(rclcpp_components REQUIRED)
-find_package(rmw REQUIRED)
+find_package(simple_actionclient_cpp REQUIRED)
+find_package(simple_serviceclient_cpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(Threads REQUIRED)
 
 # Generate parameters source code
 generate_init_parameters(
-  YAML_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/qos_relay/params.yaml"
+  YAML_FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/cmd_op_client/params.yaml"
   OUT_FILE "init_parameters.cpp")
 
 # Configure node source files
-file(GLOB QOS_RELAY_SRCS
+file(GLOB CMD_OP_CLIENT_SRCS
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" CONFIGURE_DEPENDS
-  "src/qos_relay/*.cpp")
-list(APPEND QOS_RELAY_SRCS init_parameters.cpp)
+  "src/cmd_op_client/*.cpp")
+list(APPEND CMD_OP_CLIENT_SRCS init_parameters.cpp)
 
 # Composable node
-add_library(qos_relay SHARED ${QOS_RELAY_SRCS})
-target_compile_definitions(qos_relay PRIVATE COMPOSITION_BUILDING_DLL)
-target_include_directories(qos_relay PUBLIC
+add_library(cmd_op_client SHARED ${CMD_OP_CLIENT_SRCS})
+target_compile_definitions(cmd_op_client PRIVATE COMPOSITION_BUILDING_DLL)
+target_include_directories(cmd_op_client PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(qos_relay PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17
-target_link_libraries(qos_relay
+target_compile_features(cmd_op_client PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17
+target_link_libraries(cmd_op_client
   Threads::Threads)
-ament_target_dependencies(qos_relay
+ament_target_dependencies(cmd_op_client
+  dua_app_management
+  dua_common_interfaces
+  dua_hardware_interfaces
   dua_node_cpp
   dua_qos_cpp
   params_manager_cpp
   rclcpp
+  rclcpp_action
   rclcpp_components
-  rmw)
-rclcpp_components_register_nodes(qos_relay "dua_ros_topic_tools::QoSRelay")
+  simple_actionclient_cpp
+  simple_serviceclient_cpp
+  std_msgs
+  std_srvs)
+rclcpp_components_register_nodes(cmd_op_client "dua_ros_topic_tools::CmdOpClient")
 
 # Standalone application
-add_executable(qos_relay_app
-  src/qos_relay_app.cpp)
-target_include_directories(qos_relay_app PUBLIC
+add_executable(cmd_op_client_app
+  src/cmd_op_client_app.cpp)
+target_include_directories(cmd_op_client_app PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(qos_relay_app PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17
-target_link_libraries(qos_relay_app qos_relay)
-ament_target_dependencies(qos_relay_app
+target_compile_features(cmd_op_client_app PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17
+target_link_libraries(cmd_op_client_app cmd_op_client)
+ament_target_dependencies(cmd_op_client_app
   dua_app_management
   rclcpp)
 
 # Install composable node
-install(TARGETS qos_relay
+install(TARGETS cmd_op_client
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
 # Install application
-install(TARGETS qos_relay_app
+install(TARGETS cmd_op_client_app
   DESTINATION lib/${PROJECT_NAME})
 
 # Install Config files
