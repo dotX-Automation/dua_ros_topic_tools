@@ -43,7 +43,7 @@ bool QoSRelay::validate_topic_fqn(const rclcpp::Parameter & p)
   std::string topic_fqn = p.as_string();
 
   int validation_result = RMW_TOPIC_VALID;
-  rmw_ret_t ret = rmw_validate_full_topic_name(topic_fqn.c_str(), &validation_result, NULL);
+  rmw_ret_t ret = rmw_validate_full_topic_name(topic_fqn.c_str(), &validation_result, nullptr);
 
   if (ret != RMW_RET_OK) {
     RCLCPP_FATAL(get_logger(), "Failed to validate topic FQN (%d)", ret);

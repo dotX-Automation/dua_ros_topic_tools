@@ -29,6 +29,7 @@ find_package(params_manager_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(rmw REQUIRED)
+find_package(Threads REQUIRED)
 
 # Generate parameters source code
 generate_init_parameters(
@@ -48,6 +49,8 @@ target_include_directories(qos_relay PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_compile_features(qos_relay PUBLIC c_std_99 cxx_std_17) # Require C99 and C++17
+target_link_libraries(qos_relay
+  Threads::Threads)
 ament_target_dependencies(qos_relay
   dua_node_cpp
   dua_qos_cpp
