@@ -1,0 +1,13 @@
+/qos_relay:
+  ros__parameters:
+    input:
+      name: /input
+      qos:
+        depth: 10
+        reliability: reliable
+      wait: false
+    output:
+      name: /output
+      qos:
+        depth: 1
+        reliability: best_effort
