@@ -1,0 +1,66 @@
+header_include_path: cmd_op_client/cmd_op_client.hpp
+namespace: dua_ros_topic_tools
+node_class_name: CmdOpClient
+
+params:
+  actions.arm.name:
+    type: string
+    default_value: ""
+    description: "Arm action name, set to empty string to disable"
+    constraints: ""
+    read_only: true
+    var_name: actions_arm_name_
+
+  actions.cooldown:
+    type: integer
+    default_value: 1000
+    min_value: 1
+    max_value: 10000
+    step: 1
+    description: "Cooldown time for action commands [ms]"
+    constraints: ""
+    read_only: false
+    var_name: actions_cooldown_
+
+  actions.disarm.name:
+    type: string
+    default_value: ""
+    description: "Disarm action name, set to empty string to disable"
+    constraints: ""
+    read_only: true
+    var_name: actions_disarm_name_
+
+  services.cooldown:
+    type: integer
+    default_value: 1000
+    min_value: 1
+    max_value: 10000
+    step: 1
+    description: "Cooldown time for service commands [ms]"
+    constraints: ""
+    read_only: false
+    var_name: services_cooldown_
+
+  services.kill.name:
+    type: string
+    default_value: ""
+    description: "Kill-switch service name, set to empty string to disable"
+    constraints: ""
+    read_only: true
+    var_name: services_kill_name_
+
+  services.reset.name:
+    type: string
+    default_value: ""
+    description: "UxV reset service name, set to empty string to disable"
+    constraints: ""
+    read_only: true
+    var_name: services_reset_name_
+
+  wait_servers:
+    type: bool
+    default_value: false
+    description: "Waits for action and service servers on startup"
+    constraints: ""
+    read_only: true
+    var_name: wait_servers_

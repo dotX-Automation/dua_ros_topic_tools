@@ -1,0 +1,20 @@
+/cmd_op_client:
+  ros__parameters:
+    actions:
+      arm:
+        name: /arm
+      cooldown: 1000
+      disarm:
+        name: /disarm
+    dua:
+      tf_server:
+        get_transform: false
+        transform_pose: false
+        wait_servers: false
+    services:
+      cooldown: 1000
+      kill:
+        name: /kill
+      reset:
+        name: /reset
+    wait_servers: false
